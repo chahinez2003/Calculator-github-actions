@@ -1,0 +1,43 @@
+
+name: Pipeline CI
+
+# Déclenchement du workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Définition des tâches
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Récupération du code
+      - name: Checkout du projet
+        uses: actions/checkout@v4
+
+      # Message de bienvenue
+      - name: Message de bienvenue
+        run: echo "Bienvenue dans mon premier pipeline CI !"
+
+      # Affichage des fichiers
+      - name: Liste des fichiers
+        run: ls -la
+
+      # Installation de Python
+      - name: Configuration de Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Installation de Pytest
+      - name: Installation de Pytest
+        run: pip install pytest
+
+      # Exécution des tests
+      - name: Exécution des tests unitaires
+        run: pytest -v
